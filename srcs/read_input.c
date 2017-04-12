@@ -26,10 +26,7 @@ int	is_room(char *str, t_map **map, int *flag)
 	ptr++;
 	start = ptr;
 	if (!(ptr = ft_strchr(ptr, ' ')))
-	{
-		printf("ERROR:room format\n");
-		exit(-1);
-	}
+		lm_error("ERROR:room format\n");
 	ch_xcoord = ft_strsub(str, start - str, ptr - start);
 	ptr++;
 	start = ptr;
@@ -38,10 +35,7 @@ int	is_room(char *str, t_map **map, int *flag)
 	ch_ycoord = ft_strsub(str, start - str, ptr - start);
 	if(!(x_coord = ft_atoi(ch_xcoord)) && ft_strcmp(ch_xcoord, "0") || 
 			(!(y_coord = ft_atoi(ch_ycoord)) && ft_strcmp(ch_ycoord, "0")))
-	{
-		printf("x:ERROR:room format\n");
-		exit(-1);
-	}
+			lm_error("ERROR:Coord format\n");
 	lm_addroom(map, room, x_coord, y_coord, flag);
 	free(ch_xcoord);
 	free(ch_ycoord);
@@ -50,7 +44,6 @@ int	is_room(char *str, t_map **map, int *flag)
 
 int	is_link(char *str, t_map **map)
 {
-	int		i;
 	char	*name1;
 	char	*name2;
 	t_rooms	*room1;
@@ -61,27 +54,17 @@ int	is_link(char *str, t_map **map)
 	ptr = ft_strchr(str, '-');
 	name1 = ft_strsub(str, 0, ptr - str);
 	if (!(room1 = get_room(map, name1)))
-	{
-		printf("ERROR:Room does not exist:%s\n", name1);
-		exit(1);
-	}
+		lm_error("ERROR:Room does not exist\n");
 	start = ptr + 1;
 	while (*ptr)
 		ptr++;
 	name2 = ft_strsub(str, start-str, ptr-start);
 	if (!(room2 = get_room(map, name2)))
-	{
-		printf("ERROR:Room does not exist:%s\n", name2);
-		exit(1);
-	}
+		lm_error("ERROR:Room does not exist\n");
 	if (!ft_strcmp(name1, name2))
 		return (0);
-	/* lm_addtun(room1, room2); */
-	if(!lm_addtun(room1, room2))
-	{
-		printf("ERROR:Duplicate Link\n");
-		exit(-1);
-	}
+	if(!lm_addtun(room1, room2) || !lm_addtun(room2, room1))
+		lm_error("ERROR:Duplicate Link\n");
 	free(name1);
 	free(name2);
 	return (0);

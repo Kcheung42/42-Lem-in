@@ -1,7 +1,6 @@
 
 #include "lem_in.h"
 
-/* Score all Rooms according proximity to End */
 int	lm_all_scored(t_rooms *room)
 {
 	t_tunnels	*tmp_tun;
@@ -15,26 +14,18 @@ int	lm_all_scored(t_rooms *room)
 	}
 	return (1);
 }
+
 void	lm_calcpoints_r(t_rooms *prev, t_rooms *room, int pts)
 {
 	t_tunnels	*tmp_tun;
 
-	/* printf("===========Entering room==========:%s\n",room->name); */
-	/* printf("prev room:%s\n",prev->name); */
 	if (lm_all_scored(room))
-	{
-		/* printf("allmarked\n"); */
 		return ;
-	}
 	tmp_tun = room->tun_list;
-	/* lm_printtunnels(tmp_tun); */
 	while (tmp_tun)
 	{
 		if (tmp_tun->exit->points == 0)
-		{
-			/* printf("setting:%s ->%d\n", tmp_tun->exit->name, pts); */
 			tmp_tun->exit->points = pts;
-		}
 		tmp_tun = tmp_tun->next;
 	}
 	tmp_tun = room->tun_list;
@@ -63,9 +54,6 @@ void	lm_calcpoints(t_map *map)
 	}
 	lm_valid_path(map, map->end, map->end);
 	if (!map->valid)
-	{
-		printf("ERROR:No Valid Path\n");
-		exit(-1);
-	}
+		lm_error("ERROR:No Valid Path\n");
 	lm_calcpoints_r(map->end,map->end,2);
 }

@@ -1,7 +1,11 @@
 
 #include "lem_in.h"
 
-/* Crawl Map to find a valid path from start to end */
+/*
+**  Crawl Map to find a valid path from start to end 
+**  Mark Rooms as they are checked.
+*/
+
 int	lm_all_crawled(t_rooms *room)
 {
 	t_tunnels	*tmp_tun;

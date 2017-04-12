@@ -8,7 +8,7 @@ void	lm_move_ants(t_map map, t_ants *ants, int i, t_rooms *to_move)
 	ants[i].score += ants[i].room->points;
 	ants[i].room->occupied = (ants[i].room == map.end) ? 0 : 1;
 	map.end->ant_count += (ants[i].room == map.end) ? 1 : 0;
-	printf("L%d-%s ",ants[i].num,ants[i].room->name);
+	ft_printf("L%d-%s ",ants[i].num,ants[i].room->name);
 }
 
 int	lm_find_next_path(t_map map, t_ants *ants)
@@ -39,5 +39,5 @@ int	lm_find_next_path(t_map map, t_ants *ants)
 			lm_move_ants(map, ants, i, to_move);
 		i++;
 	}
-	printf("\n");
+	ft_printf("\n");
 }
