@@ -8,14 +8,12 @@ void	handle_comment(t_map **map, int *flag, char *str)
 		if (*flag != 0)
 			lm_error("ERROR:End Input not a room\n");
 		*flag = 1;
-		printf("Start Rooom\n");
 	}
 	else if (!ft_strcmp(str, "##end"))
 	{
 		if ((*map)->end || *flag != 0)
 			lm_error("ERROR:Duplicate End || Start input not room\n");
 		*flag = -1;
-		printf("End Rooom\n");
 	}
 }
 
@@ -58,7 +56,7 @@ t_ants	*lm_parse_map(t_map **map, char *argv[], t_ants *list)
 		else if (line[0] != '#' && ft_strchr(line, '-'))
 			is_link(line, map);
 		else if (line[0] == '#' || line[0] == 'L')
-			printf("Unkown Command Ignored\n");
+			;
 		else
 			lm_error("ERROR:?\n");
 	}
