@@ -6,7 +6,7 @@
 /*   By: kcheung <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:41:50 by kcheung           #+#    #+#             */
-/*   Updated: 2017/04/12 18:59:49 by kcheung          ###   ########.fr       */
+/*   Updated: 2017/04/12 20:46:25 by kcheung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_tunnels	*lm_addtun(t_rooms *entrance, t_rooms *exit)
 	}
 }
 
-void	store_link(t_map **map, t_rooms *room1, t_rooms *room2)
+void		store_link(t_map **map, t_rooms *room1, t_rooms *room2)
 {
 	t_tunnels	*tmp;
 	t_tunnels	*new_tun;

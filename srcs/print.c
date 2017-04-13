@@ -6,7 +6,7 @@
 /*   By: kcheung <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:42:13 by kcheung           #+#    #+#             */
-/*   Updated: 2017/04/12 19:04:40 by kcheung          ###   ########.fr       */
+/*   Updated: 2017/04/12 20:46:00 by kcheung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	lm_printtunnels(t_tunnels *head)
 	temp = head;
 	while (temp)
 	{
-		ft_printf("%s-%s\n",temp->entrance->name, temp->exit->name);
+		ft_printf("%s-%s\n", temp->entrance->name, temp->exit->name);
 		temp = temp->next;
 	}
 }
