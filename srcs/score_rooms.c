@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   score_rooms.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kcheung <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/12 16:42:27 by kcheung           #+#    #+#             */
+/*   Updated: 2017/04/12 17:04:08 by kcheung          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "lem_in.h"
 
-int	lm_all_scored(t_rooms *room)
+int		lm_all_scored(t_rooms *room)
 {
 	t_tunnels	*tmp_tun;
-	
+
 	tmp_tun = room->tun_list;
 	while (tmp_tun)
 	{
@@ -55,5 +66,5 @@ void	lm_calcpoints(t_map *map)
 	lm_valid_path(map, map->end, map->end);
 	if (!map->valid)
 		lm_error("ERROR:No Valid Path\n");
-	lm_calcpoints_r(map->end,map->end,2);
+	lm_calcpoints_r(map->end, map->end, 2);
 }

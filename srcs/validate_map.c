@@ -1,12 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   validate_map.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kcheung <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/12 16:42:37 by kcheung           #+#    #+#             */
+/*   Updated: 2017/04/12 17:02:45 by kcheung          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "lem_in.h"
 
 /*
-**  Crawl Map to find a valid path from start to end 
+**  Crawl Map to find a valid path from start to end
 **  Mark Rooms as they are checked.
 */
 
-int	lm_all_crawled(t_rooms *room)
+int		lm_all_crawled(t_rooms *room)
 {
 	t_tunnels	*tmp_tun;
 
@@ -20,7 +31,7 @@ int	lm_all_crawled(t_rooms *room)
 	return (1);
 }
 
-void		lm_valid_path(t_map *maps, t_rooms *prev, t_rooms *room)
+void	lm_valid_path(t_map *maps, t_rooms *prev, t_rooms *room)
 {
 	t_tunnels	*tmp_tun;
 

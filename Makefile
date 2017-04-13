@@ -6,7 +6,7 @@
 #    By: kcheung <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/27 11:10:05 by kcheung           #+#    #+#              #
-#    Updated: 2017/03/15 12:58:47 by kcheung          ###   ########.fr        #
+#    Updated: 2017/04/12 16:40:59 by kcheung          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,6 @@ SRC_NAME = main.c \
 		   create_tunnels.c \
 		   parse_map.c \
 		   print.c \
-		   read_input.c \
 		   score_rooms.c \
 		   update_map.c \
 		   validate_map.c

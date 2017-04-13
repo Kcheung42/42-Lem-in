@@ -1,5 +1,16 @@
-#include "lem_in.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kcheung <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/12 16:42:09 by kcheung           #+#    #+#             */
+/*   Updated: 2017/04/12 18:37:07 by kcheung          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "lem_in.h"
 
 void	handle_comment(t_map **map, int *flag, char *str)
 {
@@ -33,7 +44,7 @@ void	lm_init_ants(t_map **map, int count, t_ants *list)
 
 void	lm_error(char *str)
 {
-	ft_printf(str);
+	perror(str);
 	exit(-1);
 }
 
@@ -43,7 +54,7 @@ t_ants	*lm_parse_map(t_map **map, char *argv[], t_ants *list)
 	int		comment_flag;
 
 	comment_flag = 0;
-	while (get_next_line(0, &line ) > 0)
+	while (get_next_line(0, &line) > 0)
 	{
 		if (!(list) && ((*map)->all_count = ft_atoi(line)))
 			list = (t_ants *)malloc(sizeof(t_ants) * (*map)->all_count);
@@ -61,5 +72,5 @@ t_ants	*lm_parse_map(t_map **map, char *argv[], t_ants *list)
 			lm_error("ERROR:?\n");
 	}
 	lm_init_ants(map, (*map)->all_count, list);
-	return(list);
+	return (list);
 }
