@@ -6,7 +6,7 @@
 /*   By: kcheung <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:41:50 by kcheung           #+#    #+#             */
-/*   Updated: 2017/04/12 20:46:25 by kcheung          ###   ########.fr       */
+/*   Updated: 2017/04/22 14:13:34 by kcheung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,17 +85,19 @@ int			is_link(char *str, t_map **map)
 
 	ptr = ft_strchr(str, '-');
 	if (!(room1 = get_room(map, ft_strsub(str, 0, ptr - str))))
-		lm_error("ERROR:Room does not exist\n");
+		lm_error("ERROR", "Room does not exist", **map);
 	start = ptr + 1;
 	while (*ptr)
 		ptr++;
 	if (!(room2 = get_room(map, ft_strsub(str, start - str, ptr - start))))
-		lm_error("ERROR:Room does not exist\n");
+		lm_error("ERROR", "Room does not exist", **map);
 	if (!ft_strcmp(ft_strsub(str, 0, ptr - str),
 				ft_strsub(str, start - str, ptr - start)))
 		return (0);
-	if (!lm_addtun(room1, room2) || !lm_addtun(room2, room1))
-		lm_error("ERROR:Duplicate Link\n");
-	store_link(map, room1, room2);
+	if (ft_strcmp(room1->name, room2->name))
+	{
+		if (lm_addtun(room1, room2) && lm_addtun(room2, room1))
+			store_link(map, room1, room2);
+	}
 	return (0);
 }

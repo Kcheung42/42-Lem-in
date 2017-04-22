@@ -6,7 +6,7 @@
 /*   By: kcheung <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:41:44 by kcheung           #+#    #+#             */
-/*   Updated: 2017/04/12 18:10:54 by kcheung          ###   ########.fr       */
+/*   Updated: 2017/04/14 15:43:15 by kcheung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	lm_addroom(t_map **map, char *name, int *coord, int *flag)
 	temp = (*map)->start;
 	if (*flag == -1)
 		(*map)->end = new_room;
+	if (*flag == 1)
+		(*map)->begin = new_room;
 	if (!(*map)->start)
 		(*map)->start = new_room;
 	else if (*flag == 1)
@@ -55,6 +57,19 @@ void	lm_addroom(t_map **map, char *name, int *coord, int *flag)
 	*flag = 0;
 }
 
+void	lm_checkroom(t_map map, char *room)
+{
+	t_rooms	*temp;
+
+	temp = map.start;
+	while (temp)
+	{
+		if (!ft_strcmp(room, temp->name))
+			lm_error("ERROR", "Duplicate room name", map);
+		temp = temp->next;
+	}
+}
+
 int		is_room(char *str, t_map **map, int *flag)
 {
 	char	*room;
@@ -67,16 +82,17 @@ int		is_room(char *str, t_map **map, int *flag)
 	ptr++;
 	start = ptr;
 	if (!(ptr = ft_strchr(ptr, ' ')))
-		lm_error("ERROR:room format\n");
+		lm_error("ERROR", "room format", **map);
 	if ((!(coord[0] = ft_atoi(ft_strsub(str, start - str, ptr - start))) &&
 				ft_strcmp(ft_strsub(str, start - str, ptr - start), "0")))
-		lm_error("ERROR:Coord format\n");
+		lm_error("ERROR", "Coord format\n", **map);
 	start = ptr + 1;
 	while (*ptr)
 		ptr++;
 	if (!(coord[1] = ft_atoi(ft_strsub(str, start - str, ptr - start))) &&
 		ft_strcmp(ft_strsub(str, start - str, ptr - start), "0"))
-		lm_error("ERROR:Coord format\n");
+		lm_error("ERROR", "Coord format\n", **map);
+	lm_checkroom(**map, room);
 	lm_addroom(map, room, coord, flag);
 	return (1);
 }

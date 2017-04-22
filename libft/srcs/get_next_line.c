@@ -6,7 +6,7 @@
 /*   By: kcheung <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/14 15:39:24 by kcheung           #+#    #+#             */
-/*   Updated: 2017/03/01 10:44:33 by kcheung          ###   ########.fr       */
+/*   Updated: 2017/04/22 07:36:23 by kcheung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ t_fd	*ft_fd_add(t_fd **head, int fd)
 	{
 		new = (t_fd *)malloc(sizeof(t_fd));
 		new->fd = fd;
-		new->stock = ft_strnew(1);
+		new->ptr = NULL;
+		new->stock = NULL;
 		new->next = *head;
 		*head = new;
 	}
@@ -57,42 +58,54 @@ void	fill_line(char **line, t_fd *temp)
 	}
 }
 
-void	free_things(t_fd *temp, char **buff, char **line, int ret)
+void	free_things(t_fd **head, t_fd *cur, char **buff, int ret)
 {
-	if (ret == 0 && temp->stock)
+	t_fd	*temp;
+
+	temp = NULL;
+	if (ret == 0 && cur->stock)
 	{
-		free(temp->stock);
-		temp->stock = NULL;
+		if (cur == *head)
+			*head = cur->next;
+		else
+		{
+			temp = *head;
+			while (temp->next != cur)
+				temp = temp->next;
+			temp->next = cur->next;
+		}
+		free(cur->stock);
+		cur->stock = NULL;
+		free(cur);
 	}
 	free(*buff);
-	free(*line);
 }
 
 int		get_next_line(const int fd, char **line)
 {
 	static t_fd	*head;
-	t_fd		*temp;
-	char		*buff;
-	int			ret;
+	t_fd		*t;
+	char		*b;
+	int			r;
 
-	temp = ft_fd_add(&head, fd);
-	ret = 0;
+	t = ft_fd_add(&head, fd);
 	if (!line || !(*line = ft_strnew(BUFF_SIZE)))
 		return (-1);
-	while ((buff = ft_strnew(BUFF_SIZE)) &&
-			(ret = read(temp->fd, buff, BUFF_SIZE)) > 0)
+	b = ft_strnew(BUFF_SIZE);
+	while ((r = read(t->fd, b, BUFF_SIZE)) > 0)
 	{
-		temp->stock = ft_strjoin(temp->stock, buff);
-		temp->ptr = temp->stock;
-		free(buff);
+		t->stock = (t->stock) ? ft_strjoin(t->stock, b) : ft_strjoin("\0", b);
+		t->ptr = t->stock;
+		ft_bzero(b, BUFF_SIZE);
 	}
-	if (ret < 0)
+	if (r < 0)
 		return (-1);
-	if (ft_strlen(temp->ptr) > 0 || *(temp->ptr) == '\n')
+	if (t->ptr && (ft_strlen(t->ptr) > 0 || *(t->ptr) == '\n'))
 	{
-		fill_line(line, temp);
-		temp->ptr = temp->ptr + 1;
-		ret = 1;
+		fill_line(line, t);
+		t->ptr = t->ptr + 1;
+		r = 1;
 	}
-	return (ret);
+	free_things(&head, t, &b, r);
+	return (r);
 }

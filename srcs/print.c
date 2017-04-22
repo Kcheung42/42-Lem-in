@@ -6,7 +6,7 @@
 /*   By: kcheung <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:42:13 by kcheung           #+#    #+#             */
-/*   Updated: 2017/04/12 20:46:00 by kcheung          ###   ########.fr       */
+/*   Updated: 2017/04/22 14:15:28 by kcheung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,11 @@ void	lm_printrooms(t_map *map)
 	temp = map->start;
 	while (temp)
 	{
-		if (temp == map->start)
+		if (temp == map->begin)
 			ft_printf("##start\n");
 		else if (temp == map->end)
 			ft_printf("##end\n");
+		/* ft_printf("score:%d room:", temp->points); */
 		ft_printf("%s %d %d\n", temp->name, temp->x_coord, temp->y_coord);
 		temp = temp->next;
 	}

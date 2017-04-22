@@ -6,7 +6,7 @@
 /*   By: kcheung <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 20:48:04 by kcheung           #+#    #+#             */
-/*   Updated: 2017/04/12 20:48:41 by kcheung          ###   ########.fr       */
+/*   Updated: 2017/04/22 14:18:48 by kcheung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef	struct	s_tunnels
 {
 	struct s_rooms		*entrance;
 	struct s_rooms		*exit;
+	int					capacity;
 	struct s_tunnels	*next;
 }				t_tunnels;
 
@@ -46,9 +47,11 @@ typedef	struct	s_map
 {
 	struct s_rooms		*end;
 	struct s_rooms		*start;
+	struct s_rooms		*begin;
 	struct s_tunnels	*tunnels;
 	int					all_count;
 	int					valid;
+	int					visual;
 }				t_map;
 
 t_rooms			*lm_newroom(char *name, int x, int y);
@@ -72,5 +75,5 @@ void			lm_move_ants(t_map map, t_ants *ants, int i, t_rooms *to_move);
 void			lm_find_next_path(t_map map, t_ants *ants);
 int				lm_all_crawled(t_rooms *room);
 void			lm_valid_path(t_map *maps, t_rooms *prev, t_rooms *room);
-void			lm_error(char *str);
+void			lm_error(char *str, char *detail, t_map map);
 #endif

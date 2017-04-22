@@ -6,14 +6,14 @@
 /*   By: kcheung <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:42:37 by kcheung           #+#    #+#             */
-/*   Updated: 2017/04/12 17:02:45 by kcheung          ###   ########.fr       */
+/*   Updated: 2017/04/22 08:54:54 by kcheung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
 /*
-**  Crawl Map to find a valid path from start to end
+**  Crawl Map to find a valid path from begin to end
 **  Mark Rooms as they are checked.
 */
 
@@ -40,9 +40,9 @@ void	lm_valid_path(t_map *maps, t_rooms *prev, t_rooms *room)
 	tmp_tun = room->tun_list;
 	while (tmp_tun)
 	{
-		if (tmp_tun->exit != maps->start)
+		if (tmp_tun->exit != maps->begin)
 			tmp_tun->exit->marked = 1;
-		else if (tmp_tun->exit == maps->start)
+		else if (tmp_tun->exit == maps->begin)
 			maps->valid = 1;
 		tmp_tun = tmp_tun->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: kcheung <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:42:27 by kcheung           #+#    #+#             */
-/*   Updated: 2017/04/12 17:04:08 by kcheung          ###   ########.fr       */
+/*   Updated: 2017/04/22 14:38:11 by kcheung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,28 +43,47 @@ void	lm_calcpoints_r(t_rooms *prev, t_rooms *room, int pts)
 	while (tmp_tun)
 	{
 		if (tmp_tun->exit != prev)
-			lm_calcpoints_r(room, tmp_tun->exit, pts + 1);
+			lm_calcpoints_r(room, tmp_tun->exit, pts - 1);
 		tmp_tun = tmp_tun->next;
 	}
 }
+
+/* void	find_crossing(t_map *map, t_tunnels *glb_min, t_tunnels *spwan) */
+/* { */
+/* 	t_tunnels	*temp_tun; */
+/*  */
+/* 	temp_tun = spawn; */
+/*  */
+/* 	while (temp_tun) */
+/* 	{ */
+/* 		temp_tun */
+/* 	} */
+/* } */
+/*  */
+/* void	calc_capcity(t_map *map) */
+/* { */
+/* } */
 
 void	lm_calcpoints(t_map *map)
 {
 	t_rooms		*temp;
 	t_tunnels	*tmp_tun;
 
-	temp = map->start;
-	tmp_tun = map->start->tun_list;
-	map->start->points = 101;
-	map->end->points = 1;
+	if (!map->begin)
+		lm_error("ERROR", "No starting point", *map);
+	temp = map->begin;
+	tmp_tun = map->begin->tun_list;
+	map->begin->points = 1;
+	map->end->points = map->all_count;
 	map->end->marked = 1;
 	while (tmp_tun)
 	{
-		tmp_tun->exit->points = 100;
+		tmp_tun->exit->points = 2;
+		tmp_tun->capacity = map->all_count;
 		tmp_tun = tmp_tun->next;
 	}
 	lm_valid_path(map, map->end, map->end);
 	if (!map->valid)
-		lm_error("ERROR:No Valid Path\n");
-	lm_calcpoints_r(map->end, map->end, 2);
+		lm_error("ERROR", "No Valid Path", *map);
+	lm_calcpoints_r(map->end, map->end, map->all_count - 1);
 }
