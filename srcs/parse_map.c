@@ -6,7 +6,7 @@
 /*   By: kcheung <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:42:09 by kcheung           #+#    #+#             */
-/*   Updated: 2017/04/22 08:36:07 by kcheung          ###   ########.fr       */
+/*   Updated: 2017/04/23 19:06:04 by kcheung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	lm_error(char *str, char *detail, t_map map)
 	exit(-1);
 }
 
-t_ants	*lm_parse_map(t_map **map, char *argv[], t_ants *list)
+t_ants	*lm_parse_map(t_map **map, t_ants *list)
 {
 	char	*line;
 	int		comment_flag;
@@ -86,7 +86,8 @@ t_ants	*lm_parse_map(t_map **map, char *argv[], t_ants *list)
 		else if (line[0] == '#')
 			;
 		else
-			lm_error("ERROR:", "Non Complient Line", **map);
+			lm_error("ERROR", "Non Complient Line", **map);
+		free(line);
 	}
 	lm_init_ants(map, (*map)->all_count, list);
 	return (list);

@@ -6,14 +6,14 @@
 #    By: kcheung <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/27 11:10:05 by kcheung           #+#    #+#              #
-#    Updated: 2017/04/12 16:40:59 by kcheung          ###   ########.fr        #
+#    Updated: 2017/04/23 18:57:03 by kcheung          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = lem_in
 
 CC = gcc
-CFLAGs = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 #Libft Library
 LIB_DIR = ./libft/
@@ -29,7 +29,9 @@ SRC_NAME = main.c \
 		   print.c \
 		   score_rooms.c \
 		   update_map.c \
-		   validate_map.c
+		   validate_map.c \
+		   helpers.c \
+		   helpers2.c
 SRCS = $(addprefix $(SRC_DIR), $(SRC_NAME))
 
 OBJ_DIR = ./obj/

@@ -6,7 +6,7 @@
 /*   By: kcheung <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:14:23 by kcheung           #+#    #+#             */
-/*   Updated: 2017/02/23 13:03:05 by kcheung          ###   ########.fr       */
+/*   Updated: 2017/04/23 18:24:59 by kcheung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ ssize_t			pf_handle_ws(char **fmt, va_list args, t_fmt *fl)
 	str = va_arg(args, wchar_t *);
 	if (!str)
 		str = L"(null)";
-	strlen = fl->precision ? calc_wstrlen(str, fl->precision_val, 0) : ft_wcslen(str);
+	strlen = fl->precision ? calc_wstrlen(str, fl->precision_val, 0) :
+		ft_wcslen(str);
 	if (!fl->left_justify)
 	{
 		if (fl->width && !fl->pad_zeroes)

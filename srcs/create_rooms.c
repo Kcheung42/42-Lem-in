@@ -6,7 +6,7 @@
 /*   By: kcheung <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:41:44 by kcheung           #+#    #+#             */
-/*   Updated: 2017/04/14 15:43:15 by kcheung          ###   ########.fr       */
+/*   Updated: 2017/04/23 18:55:44 by kcheung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,25 +74,22 @@ int		is_room(char *str, t_map **map, int *flag)
 {
 	char	*room;
 	char	*ptr;
-	char	*start;
 	int		coord[2];
+	char	*x;
+	char	*y;
 
-	ptr = ft_strchr(str, ' ');
-	room = ft_strsub(str, 0, ptr - str);
-	ptr++;
-	start = ptr;
-	if (!(ptr = ft_strchr(ptr, ' ')))
-		lm_error("ERROR", "room format", **map);
-	if ((!(coord[0] = ft_atoi(ft_strsub(str, start - str, ptr - start))) &&
-				ft_strcmp(ft_strsub(str, start - str, ptr - start), "0")))
+	room = get_rmname(str, &ptr);
+	x = get_xcoord(str, &ptr, map);
+	if ((!(coord[0] = ft_atoi(x)) &&
+				ft_strcmp(x, "0")))
 		lm_error("ERROR", "Coord format\n", **map);
-	start = ptr + 1;
-	while (*ptr)
-		ptr++;
-	if (!(coord[1] = ft_atoi(ft_strsub(str, start - str, ptr - start))) &&
-		ft_strcmp(ft_strsub(str, start - str, ptr - start), "0"))
+	y = get_ycoord(str, &ptr);
+	if (!(coord[1] = ft_atoi(y)) &&
+		ft_strcmp(y, "0"))
 		lm_error("ERROR", "Coord format\n", **map);
 	lm_checkroom(**map, room);
 	lm_addroom(map, room, coord, flag);
+	free(x);
+	free(y);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: kcheung <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:41:50 by kcheung           #+#    #+#             */
-/*   Updated: 2017/04/22 14:13:34 by kcheung          ###   ########.fr       */
+/*   Updated: 2017/04/23 18:48:01 by kcheung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,10 @@ t_tunnels	*lm_addtun(t_rooms *entrance, t_rooms *exit)
 		while (temp->next != NULL && temp->exit != exit)
 			temp = temp->next;
 		if (temp->exit == exit)
+		{
+			free(new_tun);
 			return (NULL);
+		}
 		else
 		{
 			temp->next = new_tun;
@@ -80,24 +83,22 @@ int			is_link(char *str, t_map **map)
 {
 	t_rooms	*room1;
 	t_rooms	*room2;
+	char	*name1;
+	char	*name2;
 	char	*ptr;
-	char	*start;
 
-	ptr = ft_strchr(str, '-');
-	if (!(room1 = get_room(map, ft_strsub(str, 0, ptr - str))))
+	name1 = get_lnkname1(str, &ptr);
+	if (!(room1 = get_room(map, name1)))
 		lm_error("ERROR", "Room does not exist", **map);
-	start = ptr + 1;
-	while (*ptr)
-		ptr++;
-	if (!(room2 = get_room(map, ft_strsub(str, start - str, ptr - start))))
+	name2 = get_lnkname2(str, &ptr);
+	if (!(room2 = get_room(map, name2)))
 		lm_error("ERROR", "Room does not exist", **map);
-	if (!ft_strcmp(ft_strsub(str, 0, ptr - str),
-				ft_strsub(str, start - str, ptr - start)))
-		return (0);
 	if (ft_strcmp(room1->name, room2->name))
 	{
 		if (lm_addtun(room1, room2) && lm_addtun(room2, room1))
 			store_link(map, room1, room2);
 	}
+	free(name1);
+	free(name2);
 	return (0);
 }

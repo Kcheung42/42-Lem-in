@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_realloc.c                                       :+:      :+:    :+:   */
+/*   helpers2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcheung <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/02 16:47:45 by kcheung           #+#    #+#             */
-/*   Updated: 2017/04/23 17:37:17 by kcheung          ###   ########.fr       */
+/*   Created: 2017/04/23 18:56:01 by kcheung           #+#    #+#             */
+/*   Updated: 2017/04/23 18:56:49 by kcheung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "lem_in.h"
 
-void	*ft_realloc(void *ptr, size_t size)
+char	*get_lnkname1(char *str, char **ptr)
 {
-	char *temp;
+	char	*name1;
 
-	if (!size && ptr)
-	{
-		if (!(temp = (char *)malloc(1)))
-			return (0);
-		ft_memdel(&ptr);
-		return (temp);
-	}
-	if (!(temp = ft_strnew(size)))
-		return (0);
-	if (ptr)
-	{
-		ft_memcpy(temp, ptr, size);
-		ft_memdel(&ptr);
-	}
-	return (temp);
+	*ptr = ft_strchr(str, '-');
+	name1 = ft_strsub(str, 0, *ptr - str);
+	return (name1);
+}
+
+char	*get_lnkname2(char *str, char **ptr)
+{
+	char	*start;
+	char	*name2;
+
+	start = (*ptr) + 1;
+	while (**ptr)
+		(*ptr)++;
+	name2 = ft_strsub(str, start - str, (*ptr) - start);
+	return (name2);
 }

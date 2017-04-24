@@ -6,7 +6,7 @@
 /*   By: kcheung <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:42:27 by kcheung           #+#    #+#             */
-/*   Updated: 2017/04/22 14:38:11 by kcheung          ###   ########.fr       */
+/*   Updated: 2017/04/22 15:07:06 by kcheung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,22 +48,6 @@ void	lm_calcpoints_r(t_rooms *prev, t_rooms *room, int pts)
 	}
 }
 
-/* void	find_crossing(t_map *map, t_tunnels *glb_min, t_tunnels *spwan) */
-/* { */
-/* 	t_tunnels	*temp_tun; */
-/*  */
-/* 	temp_tun = spawn; */
-/*  */
-/* 	while (temp_tun) */
-/* 	{ */
-/* 		temp_tun */
-/* 	} */
-/* } */
-/*  */
-/* void	calc_capcity(t_map *map) */
-/* { */
-/* } */
-
 void	lm_calcpoints(t_map *map)
 {
 	t_rooms		*temp;
@@ -79,7 +63,6 @@ void	lm_calcpoints(t_map *map)
 	while (tmp_tun)
 	{
 		tmp_tun->exit->points = 2;
-		tmp_tun->capacity = map->all_count;
 		tmp_tun = tmp_tun->next;
 	}
 	lm_valid_path(map, map->end, map->end);

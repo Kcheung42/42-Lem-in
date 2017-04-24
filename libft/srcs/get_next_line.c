@@ -6,7 +6,7 @@
 /*   By: kcheung <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/14 15:39:24 by kcheung           #+#    #+#             */
-/*   Updated: 2017/04/22 07:36:23 by kcheung          ###   ########.fr       */
+/*   Updated: 2017/04/23 18:21:49 by kcheung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		ft_strlen_n(char *str)
 	return (1 + ft_strlen_n(str + 1));
 }
 
-void	fill_line(char **line, t_fd *temp)
+void	fill_line(char **line, t_fd *temp, int *r, t_fd *t)
 {
 	int		i;
 
@@ -56,6 +56,8 @@ void	fill_line(char **line, t_fd *temp)
 		temp->ptr = temp->ptr + 1;
 		i++;
 	}
+	*r = 1;
+	t->ptr = t->ptr + 1;
 }
 
 void	free_things(t_fd **head, t_fd *cur, char **buff, int ret)
@@ -79,6 +81,7 @@ void	free_things(t_fd **head, t_fd *cur, char **buff, int ret)
 		free(cur);
 	}
 	free(*buff);
+	buff = NULL;
 }
 
 int		get_next_line(const int fd, char **line)
@@ -87,25 +90,24 @@ int		get_next_line(const int fd, char **line)
 	t_fd		*t;
 	char		*b;
 	int			r;
+	char		*tofree;
 
 	t = ft_fd_add(&head, fd);
-	if (!line || !(*line = ft_strnew(BUFF_SIZE)))
+	if (!line || !(*line = ft_strnew(1)))
 		return (-1);
 	b = ft_strnew(BUFF_SIZE);
 	while ((r = read(t->fd, b, BUFF_SIZE)) > 0)
 	{
+		tofree = t->stock;
 		t->stock = (t->stock) ? ft_strjoin(t->stock, b) : ft_strjoin("\0", b);
+		free(tofree);
 		t->ptr = t->stock;
 		ft_bzero(b, BUFF_SIZE);
 	}
 	if (r < 0)
 		return (-1);
-	if (t->ptr && (ft_strlen(t->ptr) > 0 || *(t->ptr) == '\n'))
-	{
-		fill_line(line, t);
-		t->ptr = t->ptr + 1;
-		r = 1;
-	}
+	(t->ptr && (ft_strlen(t->ptr) > 0 || *(t->ptr) == '\n')) ?
+		fill_line(line, t, &r, t) : free(*line);
 	free_things(&head, t, &b, r);
 	return (r);
 }
