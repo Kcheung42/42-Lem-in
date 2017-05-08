@@ -6,7 +6,7 @@
 /*   By: kcheung <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:41:54 by kcheung           #+#    #+#             */
-/*   Updated: 2017/04/23 19:01:13 by kcheung          ###   ########.fr       */
+/*   Updated: 2017/05/07 20:30:01 by kcheung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	init(t_map **map)
 	(*map)->end = NULL;
 	(*map)->tunnels = NULL;
 	(*map)->all_count = 0;
+	(*map)->valid = 0;
 	(*map)->visual = 0;
 }
 
@@ -66,10 +67,10 @@ int		main(int argc, char *argv[])
 		lm_error("ERROR", "No ants", *map);
 	if (!map->start)
 		lm_error("ERROR", "No rooms", *map);
+	if (!map->end)
+		lm_error("ERROR", "No end", *map);
 	lm_calcpoints(map);
-	ft_printf("%d\n", map->all_count);
-	lm_printrooms(map);
-	lm_printtunnels(map->tunnels);
+	print_map(map);
 	while (map->end->ant_count != map->all_count)
 		lm_find_next_path(*map, antlist);
 	free_map(&map, &antlist);

@@ -6,7 +6,7 @@
 /*   By: kcheung <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:42:34 by kcheung           #+#    #+#             */
-/*   Updated: 2017/04/22 10:27:46 by kcheung          ###   ########.fr       */
+/*   Updated: 2017/05/07 20:49:34 by kcheung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,22 @@ void	lm_move_ants(t_map map, t_ants *ants, int i, t_rooms *to_move)
 	ft_printf("L%d-%s ", ants[i].num, ants[i].room->name);
 }
 
-void	move(t_tunnels *tmp_tun, int *max_score, t_ants ant, t_rooms **to_move)
+t_rooms	*move(t_tunnels *tmp_tun, int *max_score, t_ants ant, t_map map)
 {
-	if (tmp_tun->exit->occupied == 0 &&
-		tmp_tun->exit->points >= *max_score &&
-		tmp_tun->exit->points > ant.room->points)
+	if (ant.room != map.end)
 	{
-		*max_score = tmp_tun->exit->points;
-		*to_move = tmp_tun->exit;
+		if (!tmp_tun->exit->occupied &&
+			tmp_tun->exit->points >= *max_score &&
+			tmp_tun->exit->points > ant.room->points)
+		{
+			*max_score = tmp_tun->exit->points;
+			return (tmp_tun->exit);
+		}
+		if (!tmp_tun->exit->occupied &&
+				tmp_tun->exit->points >= map.start->points)
+			return (tmp_tun->exit);
 	}
+	return (NULL);
 }
 
 void	lm_find_next_path(t_map map, t_ants *ants)
@@ -48,7 +55,10 @@ void	lm_find_next_path(t_map map, t_ants *ants)
 		to_move = NULL;
 		while (tmp_tun)
 		{
-			move(tmp_tun, &max_score, ants[i], &to_move);
+			to_move = (move(tmp_tun, &max_score, ants[i], map)) ?
+				move(tmp_tun, &max_score, ants[i], map) : to_move;
+			if (to_move && to_move->points > ants[i].room->points)
+				break ;
 			tmp_tun = tmp_tun->next;
 		}
 		if (to_move)

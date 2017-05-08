@@ -6,7 +6,7 @@
 /*   By: kcheung <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 20:48:04 by kcheung           #+#    #+#             */
-/*   Updated: 2017/04/23 18:55:03 by kcheung          ###   ########.fr       */
+/*   Updated: 2017/05/07 20:29:06 by kcheung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,5 @@ char			*get_lnkname2(char *str, char **ptr);
 char			*get_rmname(char *str, char **ptr);
 char			*get_xcoord(char *str, char **ptr, t_map **map);
 char			*get_ycoord(char *str, char **ptr);
+void			print_map(t_map *map);
 #endif

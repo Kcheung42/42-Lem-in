@@ -6,7 +6,7 @@
 /*   By: kcheung <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:42:13 by kcheung           #+#    #+#             */
-/*   Updated: 2017/04/23 18:26:10 by kcheung          ###   ########.fr       */
+/*   Updated: 2017/05/07 20:29:35 by kcheung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,11 @@ void	lm_printants(t_ants *list, int count)
 		ft_printf("current room:%s\n", list[i].room->name);
 		i++;
 	}
+}
+
+void	print_map(t_map *map)
+{
+	ft_printf("%d\n", map->all_count);
+	lm_printrooms(map);
+	lm_printtunnels(map->tunnels);
 }

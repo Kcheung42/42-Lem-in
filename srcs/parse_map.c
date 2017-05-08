@@ -6,7 +6,7 @@
 /*   By: kcheung <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:42:09 by kcheung           #+#    #+#             */
-/*   Updated: 2017/04/23 19:06:04 by kcheung          ###   ########.fr       */
+/*   Updated: 2017/05/07 21:10:55 by kcheung          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,8 @@ t_ants	*lm_parse_map(t_map **map, t_ants *list)
 	{
 		if (!(list) && ((*map)->all_count = ft_atoi(line)) && !comment_flag)
 			list = (t_ants *)malloc(sizeof(t_ants) * (*map)->all_count);
-		else if (!ft_strcmp(line, "##start"))
-			handle_comment(map, &comment_flag, "##start");
-		else if (!ft_strcmp(line, "##end"))
-			handle_comment(map, &comment_flag, "##end");
+		else if (!ft_strcmp(line, "##start") || !ft_strcmp(line, "##end"))
+			handle_comment(map, &comment_flag, line);
 		else if (line[0] != '#' && line[0] != 'L' && ft_strchr(line, ' ') &&
 				!ft_strchr(line, '-'))
 			is_room(line, map, &comment_flag);

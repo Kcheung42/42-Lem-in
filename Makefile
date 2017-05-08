@@ -6,7 +6,7 @@
 #    By: kcheung <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/27 11:10:05 by kcheung           #+#    #+#              #
-#    Updated: 2017/04/23 18:57:03 by kcheung          ###   ########.fr        #
+#    Updated: 2017/05/02 14:10:23 by kcheung          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,6 +76,7 @@ clean:
 fclean: clean
 	@rm -f $(NAME)
 	@rm -f $(NAME_C)
+	@rm -rf $(NAME_C).dSYM
 	@make -C $(LIB_DIR) fclean
 	@echo "Delete" [$(NAME)] "..." $(OK)
 	@echo "Delete" [$(NAME_C)] "..." $(OK)
